@@ -6,7 +6,7 @@
 /*   By: pmenard <pmenard@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:12:40 by pmenard           #+#    #+#             */
-/*   Updated: 2024/11/20 13:02:54 by pmenard          ###   ########.fr       */
+/*   Updated: 2024/11/20 15:28:28 by pmenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*ft_itoa(unsigned int x)
 void	ft_printnum(int nb, int *result)
 {
 	char	*arr;
+	char	*p;
 
 	if (nb < 0)
 	{
@@ -54,21 +55,32 @@ void	ft_printnum(int nb, int *result)
 		nb *= -1;
 	}
 	arr = ft_itoa((unsigned int) nb);
-	while (*arr)
+	p = arr;
+	if (arr != NULL)
 	{
-		ft_putchar(*arr, result);
-		arr++;
+		while (*arr)
+		{
+			ft_putchar(*arr, result);
+			arr++;
+		}
+		free(p);
 	}
 }
 
 void	ft_print_unum(unsigned int nb, int *result)
 {
 	char	*arr;
+	char	*p;
 
 	arr = ft_itoa(nb);
-	while (*arr)
+	p = arr;
+	if (arr != NULL)
 	{
-		ft_putchar(*arr, result);
-		arr++;
+		while (*arr)
+		{
+			ft_putchar(*arr, result);
+			arr++;
+		}
+		free(p);
 	}
 }
