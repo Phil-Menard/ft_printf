@@ -6,7 +6,7 @@
 /*   By: pmenard <pmenard@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:12:40 by pmenard           #+#    #+#             */
-/*   Updated: 2024/11/20 15:28:28 by pmenard          ###   ########.fr       */
+/*   Updated: 2024/11/20 17:32:28 by pmenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_itoa(unsigned int x)
 	return (ptr);
 }
 
-void	ft_printnum(int nb, int *result)
+void	ft_putnum(int nb, int *result)
 {
 	char	*arr;
 	char	*p;
@@ -67,7 +67,7 @@ void	ft_printnum(int nb, int *result)
 	}
 }
 
-void	ft_print_unum(unsigned int nb, int *result)
+void	ft_put_unum(unsigned int nb, int *result)
 {
 	char	*arr;
 	char	*p;

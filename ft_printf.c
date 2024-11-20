@@ -6,7 +6,7 @@
 /*   By: pmenard <pmenard@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:12:53 by pmenard           #+#    #+#             */
-/*   Updated: 2024/11/20 16:43:57 by pmenard          ###   ########.fr       */
+/*   Updated: 2024/11/20 18:36:44 by pmenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,26 @@ void	ft_putstr(char *str, int *result)
 	}
 }
 
+void	check_condition(const char *format, va_list ap, int *result)
+{
+	if (format[1] == 'c')
+		ft_putchar(va_arg(ap, int), result);
+	if (format[1] == 's')
+		ft_putstr(va_arg(ap, char *), result);
+	if (format[1] == 'p')
+		ft_putadd(va_arg(ap, void *), result);
+	if (format[1] == 'd' || format[1] == 'i')
+		ft_putnum(va_arg(ap, int), result);
+	if (format[1] == 'u')
+		ft_put_unum(va_arg(ap, unsigned int), result);
+	if (format[1] == 'x')
+		ft_puthexlow(va_arg(ap, unsigned int), result);
+	if (format[1] == 'X')
+		ft_puthexup(va_arg(ap, unsigned int), result);
+	if (format[1] == '%')
+		ft_putchar('%', result);
+}
+
 int	ft_printf(const char *format, ...)
 {
 	int		result;
@@ -43,20 +63,7 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			if (format[1] == 'c')
-				ft_putchar(va_arg(ap, int), &result);
-			if (format[1] == 's')
-				ft_putstr(va_arg(ap, char *), &result);
-			if (format[1] == 'd' || format[1] == 'i')
-				ft_printnum(va_arg(ap, int), &result);
-			if (format[1] == 'u')
-				ft_print_unum(va_arg(ap, unsigned int), &result);
-			if (format[1] == 'x')
-				ft_puthexlow(va_arg(ap, unsigned int), &result);
-			if (format[1] == 'X')
-				ft_puthexup(va_arg(ap, unsigned int), &result);
-			if (format[1] == '%')
-				ft_putchar('%', &result);
+			check_condition(format, ap, &result);
 			format++;
 		}
 		else
@@ -125,6 +132,18 @@ int	main(void)
 	printf("-------%%X--------\n");
 	count_ft = ft_printf("ft_printf : %X %X %X\n", 0, u, 123456789);
 	count_p = printf("   printf : %X %X %X\n", 0, u, 123456789);
+	ft_printf("count ft_printf : %d\n", count_ft);
+	printf("count    printf : %d\n", count_p);
+
+	ft_printf("\n-------%%p--------\n");
+	printf("-------%%p--------\n");
+	a = 0;
+	count_ft = ft_printf("ft_printf : %p %p %p\n", &a, &u, &s);
+	count_p = printf("   printf : %p %p %p\n", &a, &u, &s);
+	ft_printf("count ft_printf : %d\n", count_ft);
+	printf("count    printf : %d\n", count_p);
+	count_ft = ft_printf("%p %p \n", (void *)0, (void *)0);
+	count_p = printf("%p %p \n", (void *)0, (void *)0);
 	ft_printf("count ft_printf : %d\n", count_ft);
 	printf("count    printf : %d\n", count_p);
 
