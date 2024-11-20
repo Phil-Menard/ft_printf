@@ -1,21 +1,24 @@
 #include "ft_printf.h"
 
-void	ft_putchar(int c)
+void	ft_putchar(int c, int *result)
 {
 	write(1, &c, 1);
+	*result += 1;
 }
 
-void	ft_putstr(char *str)
+void	ft_putstr(char *str, int *result)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		ft_putchar(str[i]);
+		ft_putchar(str[i], result);
 		i++;
 	}
 }
+
+
 
 int	ft_printf(const char *format, ...)
 {
@@ -29,38 +32,37 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			if (format[1] == 'c')
-				ft_putchar(va_arg(ap, int));
+				ft_putchar(va_arg(ap, int), &result);
 			if (format[1] == 's')
-				ft_putstr(va_arg(ap, char *));
+				ft_putstr(va_arg(ap, char *), &result);
+			if (format[1] == 'd' || format[1] == 'i')
+				ft_printnum(va_arg(ap, int), &result);
 			if(format[1] == '%')
-				ft_putchar('%');
+				ft_putchar('%', &result);
 			format++;
 		}
 		else
-			ft_putchar(*format);
+			ft_putchar(*format, &result);
 		format++;
 	}
 	va_end(ap);
 	return (result);
 }
 
-#include <stdio.h>
+/* #include <stdio.h>
 
 int	main(void)
 {
-	char	a;
-	char	b;
-	char	str[] = "hello";
+	int		count;
 
-	a = 'f';
-	b = 'u';
-	//a = sum_integers(6, 10, 20, 30, 40, 50, 60); //le premier arg indique le nombre d'arg qui suivent
-	ft_printf("%c%c%%%s\n", a, b, str);
-	printf("%c%c%%%s\n", a, b, str);
-
+	count = ft_printf("ft_printf : %c%c%c\n", 'a', 'P', '\0');
+	printf("count ft_printf : %d\n", count);
+	count = printf("   printf : %c%c%c\n", 'a', 'P', '\0');
+	printf("count    printf : %d\n", count);
 	return (0);
-}
+} */
 
+//a = sum_integers(6, 10, 20, 30, 40, 50, 60); //le premier arg indique le nombre d'arg qui suivent
 /* int	sum_integers(int num, ...)
 {
 	int	result;
