@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmenard <pmenard@student.42perpignan.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/20 12:12:53 by pmenard           #+#    #+#             */
+/*   Updated: 2024/11/20 12:14:15 by pmenard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	ft_putchar(int c, int *result)
@@ -18,8 +30,6 @@ void	ft_putstr(char *str, int *result)
 	}
 }
 
-
-
 int	ft_printf(const char *format, ...)
 {
 	int		result;
@@ -37,7 +47,7 @@ int	ft_printf(const char *format, ...)
 				ft_putstr(va_arg(ap, char *), &result);
 			if (format[1] == 'd' || format[1] == 'i')
 				ft_printnum(va_arg(ap, int), &result);
-			if(format[1] == '%')
+			if (format[1] == '%')
 				ft_putchar('%', &result);
 			format++;
 		}
@@ -62,7 +72,8 @@ int	main(void)
 	return (0);
 } */
 
-//a = sum_integers(6, 10, 20, 30, 40, 50, 60); //le premier arg indique le nombre d'arg qui suivent
+//a = sum_integers(6, 10, 20, 30, 40, 50, 60); 
+//le premier arg indique le nombre d'arg qui suivent
 /* int	sum_integers(int num, ...)
 {
 	int	result;
@@ -85,13 +96,16 @@ Cette variable s'appelle traditionnellement ap (pour argument pointer),
 et a pour but de repérer le paramètre effectif courant.
 
 	va_start(va_list ap, parmN)
-=>doit être appelée avant toute utilisation de va_arg. La macro va_start a deux paramètres :
+=>doit être appelée avant toute utilisation de va_arg. 
+La macro va_start a deux paramètres :
  la variable ap et le nom du dernier paramètre obligatoire de la fonction.
 
 	va_arg(va_list ap, type)
-=>délivre le paramètre effectif courant : le premier appel à va_arg délivre le premier paramètre,
+=>délivre le paramètre effectif courant : le premier appel à 
+va_arg délivre le premier paramètre,
 puis chaque nouvel appel à va_arg délivre le paramètre suivant.
-La macro va_arg admet deux paramètres : la variable ap et le type du paramètre courant
+La macro va_arg admet deux paramètres : la variable ap et 
+le type du paramètre courant
 
 	va_end(va_list ap) 
 =>doit être appelée après toutes les utilisations de va_arg. 
