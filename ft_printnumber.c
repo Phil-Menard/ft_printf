@@ -6,19 +6,17 @@
 /*   By: pmenard <pmenard@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:12:40 by pmenard           #+#    #+#             */
-/*   Updated: 2024/11/20 12:14:28 by pmenard          ###   ########.fr       */
+/*   Updated: 2024/11/20 13:02:54 by pmenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	len_int(long int n)
+size_t	len_int(unsigned int n)
 {
 	size_t	i;
 
 	i = 1;
-	if (n < 0)
-		n *= -1;
 	while (n > 9)
 	{
 		i++;
@@ -27,19 +25,12 @@ size_t	len_int(long int n)
 	return (i);
 }
 
-char	*ft_itoa(int n, int *result)
+char	*ft_itoa(unsigned int x)
 {
-	char		*ptr;
-	int			i;
-	long int	x;
+	char			*ptr;
+	size_t			i;
 
-	x = (long int) n;
 	i = len_int(x);
-	if (x < 0)
-	{
-		ft_putchar('-', result);
-		x *= -1;
-	}
 	ptr = malloc((len_int(x) + 1) * sizeof(char));
 	if (ptr == NULL)
 		return (NULL);
@@ -55,9 +46,26 @@ char	*ft_itoa(int n, int *result)
 
 void	ft_printnum(int nb, int *result)
 {
-	char		*arr;
+	char	*arr;
 
-	arr = ft_itoa(nb, result);
+	if (nb < 0)
+	{
+		ft_putchar('-', result);
+		nb *= -1;
+	}
+	arr = ft_itoa((unsigned int) nb);
+	while (*arr)
+	{
+		ft_putchar(*arr, result);
+		arr++;
+	}
+}
+
+void	ft_print_unum(unsigned int nb, int *result)
+{
+	char	*arr;
+
+	arr = ft_itoa(nb);
 	while (*arr)
 	{
 		ft_putchar(*arr, result);

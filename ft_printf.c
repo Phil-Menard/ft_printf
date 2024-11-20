@@ -6,7 +6,7 @@
 /*   By: pmenard <pmenard@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:12:53 by pmenard           #+#    #+#             */
-/*   Updated: 2024/11/20 12:14:15 by pmenard          ###   ########.fr       */
+/*   Updated: 2024/11/20 14:34:25 by pmenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ void	ft_putchar(int c, int *result)
 
 void	ft_putstr(char *str, int *result)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	if (str == NULL)
+		ft_putstr("(null)", result);
+	else
 	{
-		ft_putchar(str[i], result);
-		i++;
+		while (*str)
+		{
+			ft_putchar(*str, result);
+			str++;
+		}
 	}
 }
 
@@ -47,6 +49,8 @@ int	ft_printf(const char *format, ...)
 				ft_putstr(va_arg(ap, char *), &result);
 			if (format[1] == 'd' || format[1] == 'i')
 				ft_printnum(va_arg(ap, int), &result);
+			if (format[1] == 'u')
+				ft_print_unum(va_arg(ap, unsigned int), &result);
 			if (format[1] == '%')
 				ft_putchar('%', &result);
 			format++;
@@ -59,18 +63,55 @@ int	ft_printf(const char *format, ...)
 	return (result);
 }
 
-/* #include <stdio.h>
+#include <stdio.h>
 
 int	main(void)
 {
-	int		count;
+	int				count_p;
+	int				count_ft;
+	int				a;
+	unsigned int	u;
+	char			*s = NULL;
 
-	count = ft_printf("ft_printf : %c%c%c\n", 'a', 'P', '\0');
-	printf("count ft_printf : %d\n", count);
-	count = printf("   printf : %c%c%c\n", 'a', 'P', '\0');
-	printf("count    printf : %d\n", count);
+	ft_printf("-------%%c--------\n");
+	printf("-------%%c--------\n");
+	count_ft = ft_printf("ft_printf : %c%c%c\n", 'a', 'P', '\0');
+	count_p = printf("   printf : %c%c%c\n", 'a', 'P', '\0');
+	printf("count ft_printf : %d\n", count_ft);
+	printf("count    printf : %d\n", count_p);
+
+	ft_printf("-------%%s--------\n");
+	printf("-------%%s--------\n");
+	count_ft = ft_printf("ft_printf : %s %s\n", s, "lalalalala");
+	count_p = printf("   printf : %s %s\n", s, "lalalalala");
+	printf("count ft_printf : %d\n", count_ft);
+	printf("count    printf : %d\n", count_p);
+
+	ft_printf("-------%%d--------\n");
+	printf("-------%%d--------\n");
+	a = -2147483648;
+	count_ft = ft_printf("ft_printf : %d %d %d\n", 0, a, 2147483647);
+	count_p = printf("   printf : %d %d %d\n", 0, a, 2147483647);
+	printf("count ft_printf : %d\n", count_ft);
+	printf("count    printf : %d\n", count_p);
+
+	ft_printf("-------%%i--------\n");
+	printf("-------%%i--------\n");
+	count_ft = ft_printf("ft_printf : %i %i %i\n", 0, a, 2147483647);
+	count_p = printf("   printf : %i %i %i\n", 0, a, 2147483647);
+	printf("count ft_printf : %d\n", count_ft);
+	printf("count    printf : %d\n", count_p);
+
+	ft_printf("-------%%u--------\n");
+	printf("-------%%u--------\n");
+	u = 4294967295;
+	count_ft = ft_printf("ft_printf : %u %u\n", 0, u);
+	count_p = printf("   printf : %u %u\n", 0, u);
+	printf("count ft_printf : %d\n", count_ft);
+	printf("count    printf : %d\n", count_p);
+	
 	return (0);
-} */
+}
 
 //a = sum_integers(6, 10, 20, 30, 40, 50, 60); 
 //le premier arg indique le nombre d'arg qui suivent
