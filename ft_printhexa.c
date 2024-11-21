@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hexa.c                                          :+:      :+:    :+:   */
+/*   ft_printhexa.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmenard <pmenard@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:54:09 by pmenard           #+#    #+#             */
-/*   Updated: 2024/11/20 17:54:12 by pmenard          ###   ########.fr       */
+/*   Updated: 2024/11/21 11:21:05 by pmenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,43 +37,16 @@ char	*ft_itohex(unsigned int x, int loworup)
 	return (ptr);
 }
 
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-void	ft_puthexlow(unsigned int x, int *result)
+void	ft_puthex(unsigned int x, int *result, char c)
 {
 	char	*arr;
 	char	*p;
 	int		i;
 
-	arr = ft_itohex(x, 87);
-	p = arr;
-	if (arr != NULL)
-	{
-		i = ft_strlen(arr) - 1;
-		while (i >= 0)
-		{
-			ft_putchar(arr[i], result);
-			i--;
-		}
-		free(p);
-	}
-}
-
-void	ft_puthexup(unsigned int x, int *result)
-{
-	char	*arr;
-	char	*p;
-	int		i;
-
-	arr = ft_itohex(x, 55);
+	if (c == 'x')
+		arr = ft_itohex(x, 87);
+	else
+		arr = ft_itohex(x, 55);
 	p = arr;
 	if (arr != NULL)
 	{

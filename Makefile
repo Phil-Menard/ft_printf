@@ -3,8 +3,8 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 SRC = ft_printf.c \
 	ft_printnumber.c \
-	ft_hexa.c \
-	ft_adress.c
+	ft_printhexa.c \
+	ft_printaddress.c
 
 OBJ = $(SRC:.c=.o)
 

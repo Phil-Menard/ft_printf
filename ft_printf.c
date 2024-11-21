@@ -6,7 +6,7 @@
 /*   By: pmenard <pmenard@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:12:53 by pmenard           #+#    #+#             */
-/*   Updated: 2024/11/20 18:36:44 by pmenard          ###   ########.fr       */
+/*   Updated: 2024/11/21 11:22:24 by pmenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ void	ft_putstr(char *str, int *result)
 	}
 }
 
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
 void	check_condition(const char *format, va_list ap, int *result)
 {
 	if (format[1] == 'c')
@@ -44,10 +54,8 @@ void	check_condition(const char *format, va_list ap, int *result)
 		ft_putnum(va_arg(ap, int), result);
 	if (format[1] == 'u')
 		ft_put_unum(va_arg(ap, unsigned int), result);
-	if (format[1] == 'x')
-		ft_puthexlow(va_arg(ap, unsigned int), result);
-	if (format[1] == 'X')
-		ft_puthexup(va_arg(ap, unsigned int), result);
+	if (format[1] == 'x' || format[1] == 'X')
+		ft_puthex(va_arg(ap, unsigned int), result, format[1]);
 	if (format[1] == '%')
 		ft_putchar('%', result);
 }
